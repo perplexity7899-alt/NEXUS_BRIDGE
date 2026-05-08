@@ -171,6 +171,48 @@ function Dashboard() {
           </div>
         </div>
 
+        {boardUrl && (
+          <div className="mt-6 bg-card glow-ring rounded-2xl p-6">
+            <div className="text-xs font-mono uppercase tracking-widest text-muted-foreground mb-3">
+              Board URL — open this on the smart board
+            </div>
+            <div className="flex flex-col sm:flex-row gap-4 items-start">
+              <div className="bg-white p-3 rounded-lg shrink-0">
+                <QRCodeSVG value={boardUrl} size={120} level="M" />
+              </div>
+              <div className="flex-1 w-full space-y-2">
+                <div className="bg-input rounded-lg px-3 py-2 font-mono text-xs break-all">
+                  {boardUrl}
+                </div>
+                <div className="flex gap-2">
+                  <button
+                    onClick={() => {
+                      navigator.clipboard.writeText(boardUrl);
+                      setCopied(true);
+                      setTimeout(() => setCopied(false), 2000);
+                    }}
+                    className="flex-1 flex items-center justify-center gap-2 py-2 rounded-lg bg-secondary hover:bg-accent transition text-sm font-medium"
+                  >
+                    {copied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+                    {copied ? "Copied!" : "Copy URL"}
+                  </button>
+                  <a
+                    href={boardUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="flex-1 flex items-center justify-center gap-2 py-2 rounded-lg bg-secondary hover:bg-accent transition text-sm font-medium"
+                  >
+                    <ExternalLink className="w-4 h-4" /> Open
+                  </a>
+                </div>
+                <p className="text-xs text-muted-foreground">
+                  Scan the QR with the smart board's browser, or copy & paste the URL. It updates live.
+                </p>
+              </div>
+            </div>
+          </div>
+        )}
+
         {current?.url && (
           <div className="mt-6 bg-card border border-border rounded-2xl p-5">
             <div className="text-xs font-mono uppercase tracking-widest text-muted-foreground mb-2">
