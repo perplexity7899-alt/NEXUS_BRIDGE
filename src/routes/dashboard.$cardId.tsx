@@ -26,6 +26,7 @@ function Dashboard() {
   const [uploading, setUploading] = useState(false);
   const [pushedAt, setPushedAt] = useState<number | null>(null);
   const [current, setCurrent] = useState<{ url: string | null; type: string | null } | null>(null);
+  const [copied, setCopied] = useState(false);
 
   useEffect(() => {
     supabase
