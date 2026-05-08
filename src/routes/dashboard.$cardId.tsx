@@ -1,7 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import { Upload, Send, Link as LinkIcon, Image as ImageIcon, FileText, ExternalLink, Loader2, Check } from "lucide-react";
+import { Upload, Send, Link as LinkIcon, Image as ImageIcon, FileText, ExternalLink, Loader2, Check, Copy } from "lucide-react";
+import { QRCodeSVG } from "qrcode.react";
 
 export const Route = createFileRoute("/dashboard/$cardId")({
   component: Dashboard,
