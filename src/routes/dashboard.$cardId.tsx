@@ -32,7 +32,7 @@ function Dashboard() {
       .select("active_content_url, content_type")
       .eq("card_id", cardId)
       .maybeSingle()
-      .then(({ data }) => setCurrent(data));
+      .then(({ data }) => setCurrent(data ? { url: data.active_content_url, type: data.content_type } : null));
   }, [cardId, pushedAt]);
 
   useEffect(() => {
