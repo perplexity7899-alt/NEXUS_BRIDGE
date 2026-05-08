@@ -72,14 +72,18 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
+      { title: "Nesus-Share" },
+      { name: "description", content: "Nexus Share is a real-time wireless document sharing hub for seamless content distribution." },
       { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { property: "og:title", content: "Nesus-Share" },
+      { property: "og:description", content: "Nexus Share is a real-time wireless document sharing hub for seamless content distribution." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:title", content: "Nesus-Share" },
+      { name: "twitter:description", content: "Nexus Share is a real-time wireless document sharing hub for seamless content distribution." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/c177b630-00e8-41a5-a17b-4a70e526d470/id-preview-a4d9f1e8--50723480-cffb-4586-a383-d647fb9db1f4.lovable.app-1778217810310.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/c177b630-00e8-41a5-a17b-4a70e526d470/id-preview-a4d9f1e8--50723480-cffb-4586-a383-d647fb9db1f4.lovable.app-1778217810310.png" },
     ],
     links: [
       {
