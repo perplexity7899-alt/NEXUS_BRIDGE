@@ -10,33 +10,53 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as DashboardCardIdRouteImport } from './routes/dashboard.$cardId'
+import { Route as BoardCardIdRouteImport } from './routes/board.$cardId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DashboardCardIdRoute = DashboardCardIdRouteImport.update({
+  id: '/dashboard/$cardId',
+  path: '/dashboard/$cardId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BoardCardIdRoute = BoardCardIdRouteImport.update({
+  id: '/board/$cardId',
+  path: '/board/$cardId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/board/$cardId': typeof BoardCardIdRoute
+  '/dashboard/$cardId': typeof DashboardCardIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/board/$cardId': typeof BoardCardIdRoute
+  '/dashboard/$cardId': typeof DashboardCardIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/board/$cardId': typeof BoardCardIdRoute
+  '/dashboard/$cardId': typeof DashboardCardIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/board/$cardId' | '/dashboard/$cardId'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/board/$cardId' | '/dashboard/$cardId'
+  id: '__root__' | '/' | '/board/$cardId' | '/dashboard/$cardId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  BoardCardIdRoute: typeof BoardCardIdRoute
+  DashboardCardIdRoute: typeof DashboardCardIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,12 +68,38 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/dashboard/$cardId': {
+      id: '/dashboard/$cardId'
+      path: '/dashboard/$cardId'
+      fullPath: '/dashboard/$cardId'
+      preLoaderRoute: typeof DashboardCardIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/board/$cardId': {
+      id: '/board/$cardId'
+      path: '/board/$cardId'
+      fullPath: '/board/$cardId'
+      preLoaderRoute: typeof BoardCardIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  BoardCardIdRoute: BoardCardIdRoute,
+  DashboardCardIdRoute: DashboardCardIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
