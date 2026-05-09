@@ -90,6 +90,11 @@ function LinkQR({ url, title, type }: { url: string; title?: string | null; type
   const [copied, setCopied] = useState(false);
   return (
     <div className="text-center max-w-2xl">
+      {type && (
+        <div className="text-xs font-mono uppercase tracking-[0.3em] text-muted-foreground mb-3">
+          {type === "pdf" ? "PDF Document" : type === "image" ? "Image" : "Link"}
+        </div>
+      )}
       {title && <h2 className="text-2xl font-semibold mb-2">{title}</h2>}
       <div className="inline-block p-8 bg-white rounded-2xl glow-ring mb-6">
         <QRCodeSVG value={url} size={320} level="M" />
