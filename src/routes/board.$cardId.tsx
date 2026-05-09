@@ -66,13 +66,7 @@ function Board() {
 
       <main className="flex-1 flex items-center justify-center p-6 pt-16">
         {!url && <EmptyState cardId={cardId} />}
-        {url && type === "image" && (
-          <img src={url} alt={session?.title || ""} className="max-w-full max-h-[90vh] object-contain rounded-xl glow-ring" />
-        )}
-        {url && type === "pdf" && (
-          <iframe src={url} title={session?.title || "PDF"} className="w-full h-[90vh] rounded-xl glow-ring bg-card" />
-        )}
-        {url && type === "link" && <LinkQR url={url} title={session?.title} />}
+        {url && <LinkQR url={url} title={session?.title} type={type} />}
       </main>
     </div>
   );
@@ -92,10 +86,15 @@ function EmptyState({ cardId }: { cardId: string }) {
   );
 }
 
-function LinkQR({ url, title }: { url: string; title?: string | null }) {
+function LinkQR({ url, title, type }: { url: string; title?: string | null; type?: string | null }) {
   const [copied, setCopied] = useState(false);
   return (
     <div className="text-center max-w-2xl">
+      {type && (
+        <div className="text-xs font-mono uppercase tracking-[0.3em] text-muted-foreground mb-3">
+          {type === "pdf" ? "PDF Document" : type === "image" ? "Image" : "Link"}
+        </div>
+      )}
       {title && <h2 className="text-2xl font-semibold mb-2">{title}</h2>}
       <div className="inline-block p-8 bg-white rounded-2xl glow-ring mb-6">
         <QRCodeSVG value={url} size={320} level="M" />
