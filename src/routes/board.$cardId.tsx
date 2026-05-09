@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { QRCodeSVG } from "qrcode.react";
-import { Radio, Wifi } from "lucide-react";
+import { Radio, Wifi, Copy, Check, ExternalLink } from "lucide-react";
 
 export const Route = createFileRoute("/board/$cardId")({
   component: Board,
@@ -93,13 +93,35 @@ function EmptyState({ cardId }: { cardId: string }) {
 }
 
 function LinkQR({ url, title }: { url: string; title?: string | null }) {
+  const [copied, setCopied] = useState(false);
   return (
     <div className="text-center max-w-2xl">
       {title && <h2 className="text-2xl font-semibold mb-2">{title}</h2>}
       <div className="inline-block p-8 bg-white rounded-2xl glow-ring mb-6">
         <QRCodeSVG value={url} size={320} level="M" />
       </div>
-      <p className="text-muted-foreground text-sm font-mono break-all max-w-lg mx-auto">{url}</p>
+      <p className="text-muted-foreground text-sm font-mono break-all max-w-lg mx-auto mb-4">{url}</p>
+      <div className="flex gap-2 justify-center max-w-lg mx-auto">
+        <button
+          onClick={() => {
+            navigator.clipboard.writeText(url);
+            setCopied(true);
+            setTimeout(() => setCopied(false), 2000);
+          }}
+          className="flex items-center gap-2 px-4 py-2 rounded-lg bg-secondary hover:bg-accent transition text-sm font-medium"
+        >
+          {copied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+          {copied ? "Copied" : "Copy URL"}
+        </button>
+        <a
+          href={url}
+          target="_blank"
+          rel="noreferrer"
+          className="flex items-center gap-2 px-4 py-2 rounded-lg bg-primary text-primary-foreground hover:brightness-110 transition text-sm font-medium"
+        >
+          <ExternalLink className="w-4 h-4" /> Open here
+        </a>
+      </div>
     </div>
   );
 }
