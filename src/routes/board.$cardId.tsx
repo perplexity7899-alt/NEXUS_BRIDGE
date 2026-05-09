@@ -66,13 +66,7 @@ function Board() {
 
       <main className="flex-1 flex items-center justify-center p-6 pt-16">
         {!url && <EmptyState cardId={cardId} />}
-        {url && type === "image" && (
-          <img src={url} alt={session?.title || ""} className="max-w-full max-h-[90vh] object-contain rounded-xl glow-ring" />
-        )}
-        {url && type === "pdf" && (
-          <iframe src={url} title={session?.title || "PDF"} className="w-full h-[90vh] rounded-xl glow-ring bg-card" />
-        )}
-        {url && type === "link" && <LinkQR url={url} title={session?.title} />}
+        {url && <LinkQR url={url} title={session?.title} type={type} />}
       </main>
     </div>
   );
