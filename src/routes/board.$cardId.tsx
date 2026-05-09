@@ -89,18 +89,23 @@ function EmptyState({ cardId }: { cardId: string }) {
 function LinkQR({ url, title, type }: { url: string; title?: string | null; type?: string | null }) {
   const [copied, setCopied] = useState(false);
   return (
-    <div className="text-center max-w-2xl">
+    <div className="text-center max-w-2xl w-full px-2">
       {type && (
-        <div className="text-xs font-mono uppercase tracking-[0.3em] text-muted-foreground mb-3">
+        <div className="text-[10px] sm:text-xs font-mono uppercase tracking-[0.3em] text-muted-foreground mb-3">
           {type === "pdf" ? "PDF Document" : type === "image" ? "Image" : "Link"}
         </div>
       )}
-      {title && <h2 className="text-2xl font-semibold mb-2">{title}</h2>}
-      <div className="inline-block p-8 bg-white rounded-2xl glow-ring mb-6">
-        <QRCodeSVG value={url} size={320} level="M" />
+      {title && <h2 className="text-lg sm:text-2xl font-semibold mb-2 break-words">{title}</h2>}
+      <div className="inline-block p-4 sm:p-8 bg-white rounded-2xl glow-ring mb-6 max-w-full">
+        <QRCodeSVG
+          value={url}
+          size={280}
+          level="M"
+          className="w-[min(70vw,320px)] h-[min(70vw,320px)]"
+        />
       </div>
-      <p className="text-muted-foreground text-sm font-mono break-all max-w-lg mx-auto mb-4">{url}</p>
-      <div className="flex gap-2 justify-center max-w-lg mx-auto">
+      <p className="text-muted-foreground text-xs sm:text-sm font-mono break-all max-w-lg mx-auto mb-4">{url}</p>
+      <div className="flex flex-col sm:flex-row gap-2 justify-center max-w-lg mx-auto">
         <button
           onClick={() => {
             navigator.clipboard.writeText(url);
