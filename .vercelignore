@@ -1,0 +1,11 @@
+node_modules
+.git
+.env.local
+.env.*.local
+dist
+build
+*.log
+.DS_Store
+.next
+.turbo
+supabase/config.toml
