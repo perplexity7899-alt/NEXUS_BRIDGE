@@ -86,7 +86,7 @@ function EmptyState({ cardId }: { cardId: string }) {
   );
 }
 
-function LinkQR({ url, title }: { url: string; title?: string | null }) {
+function LinkQR({ url, title, type }: { url: string; title?: string | null; type?: string | null }) {
   const [copied, setCopied] = useState(false);
   return (
     <div className="text-center max-w-2xl">
