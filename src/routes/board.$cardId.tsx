@@ -64,7 +64,7 @@ function Board() {
         </div>
       </header>
 
-      <main className="flex-1 flex items-center justify-center p-6 pt-16">
+      <main className="flex-1 flex items-center justify-center p-4 sm:p-6 pt-20 sm:pt-16">
         {!url && <EmptyState cardId={cardId} />}
         {url && <LinkQR url={url} title={session?.title} type={type} />}
       </main>
